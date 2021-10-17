@@ -1,17 +1,17 @@
 <template>
-    <div class="page-cart">
+    <div class="page-cart font-king">
         <div class="columns is-multiline">
             <div class="column is-12">
-                <h1 class="title">Cart</h1>
+                <h1 class="title">Pack</h1>
             </div>
 
             <div class="column is-12 box">
                 <table class="table is-fullwidth" v-if="cartTotalLength">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Nom de Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
                             <th>Total</th>
                             <th></th>
                         </tr>
@@ -26,17 +26,22 @@
                     </tbody>
                 </table>
 
-                <p v-else>You don't have any products in your cart...</p>
+                <p v-else>Vous n'avez aucun produit dans votre...</p>
             </div>
 
             <div class="column is-12 box">
-                <h2 class="subtitle">Summary</h2>
+                <h2 class="subtitle">Prix total du Pack</h2>
 
-                <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+                <strong class="is-size-4">{{ cartTotalPrice.toFixed(2) }}DZD</strong>, {{ cartTotalLength }} items
+
+                <hr>
+                <h2 class="subtitle">Votre profit de Pack</h2>
+
+                <strong class="is-size-4">{{ cartTotalPrice.toFixed(2)*0.10 }}.00DZD</strong>
 
                 <hr>
 
-                <router-link to="/cart/checkout" class="button is-dark">Proceed to checkout</router-link>
+                <router-link to="/cart/checkout" class="button is-dark">Créer votre pack</router-link>
             </div>
         </div>
     </div>

@@ -1,10 +1,10 @@
 <template>
   <div id="wrapper">
-    <nav class="navbar is-dark">
+    <nav class="navbar">
       <div class="navbar-brand">
-        <router-link to="/" class="navbar-item"><strong>Djackets</strong></router-link>
+        <router-link to="/" class="navbar-item"><strong class="font-king is-size-4">Cosfluencer</strong></router-link>
 
-        <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu = !showMobileMenu">
+        <a class="navbar-burger font-king" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu = !showMobileMenu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -17,11 +17,11 @@
             <form method="get" action="/search">
               <div class="field has-addons">
                 <div class="control">
-                  <input type="text" class="input" placeholder="What are you looking for?" name="query">
+                  <input type="text" class="input font-king is-size-6" placeholder="Vous cherchez quoi?" name="query">
                 </div>
 
                 <div class="control">
-                  <button class="button is-success">
+                  <button class="button">
                       <span class="icon">
                       <i class="fas fa-search"></i>
                       </span>
@@ -33,22 +33,22 @@
         </div>
 
         <div class="navbar-end">
-          <router-link to="/summer" class="navbar-item">Summer</router-link>
-          <router-link to="/winter" class="navbar-item">Winter</router-link>
+          <router-link to="/summer" class="navbar-item font-king is-size-4">Summer</router-link>
+          <router-link to="/winter" class="navbar-item font-king is-size-4">Winter</router-link>
 
           <div class="navbar-item">
             <div class="buttons">
               <template v-if="$store.state.isAuthenticated">
-                <router-link to="/my-account" class="button is-light">My account</router-link>
+                <router-link to="/my-account" class="button is-pink font-king is-size-6">Mon Compte</router-link>
               </template>
 
               <template v-else>
-                <router-link to="/log-in" class="button is-light">Log in</router-link>
+                <router-link to="/log-in" class="button is-pink font-king is-size-6">Se Connecter</router-link>
               </template>
 
-              <router-link to="/cart" class="button is-success">
-                <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                <span>Cart ({{ cartTotalLength }})</span>
+              <router-link to="/cart" class="button is-pink">
+                <span class="icon"><i class="fas fa-box-open"></i></span>
+                <span class="font-king is-size-5">Mon Pack ({{ cartTotalLength }})</span>
               </router-link>
             </div>
           </div>
@@ -65,7 +65,7 @@
     </section>
 
     <footer class="footer">
-      <p class="has-text-centered">Copyright (c) 2021</p>
+      <p class="has-text-centered welcome-font is-size-5">Copyright (c) 2021</p>
     </footer>
   </div>
 </template>
@@ -148,5 +148,10 @@ export default {
   &.is-loading {
     height: 80px;
   }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Loved+by+the+King');
+.font-king {
+  font-family: "Loved by the King", "sans-serif";
 }
 </style>

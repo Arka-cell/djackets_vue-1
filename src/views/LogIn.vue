@@ -2,36 +2,36 @@
     <div class="page-log-in">
         <div class="columns">
             <div class="column is-4 is-offset-4">
-                <h1 class="title">Log in</h1>
+                <h1 class="title font-king is-size-3">Se Connecter</h1>
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
-                        <label>Username</label>
+                        <label class="font-king is-size-4">Nom d'Utilisateur</label>
                         <div class="control">
-                            <input type="text" class="input" v-model="username">
+                            <input type="text" class="input font-king is-size-6" v-model="username">
                         </div>
                     </div>
 
                     <div class="field">
-                        <label>Password</label>
+                        <label class="font-king is-size-4">Mot de Passe</label>
                         <div class="control">
                             <input type="password" class="input" v-model="password">
                         </div>
                     </div>
 
-                    <div class="notification is-danger" v-if="errors.length">
+                    <div class="notification is-danger font-king" v-if="errors.length">
                         <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
                     </div>
 
                     <div class="field">
                         <div class="control">
-                            <button class="button is-dark">Log in</button>
+                            <button class="button is-dark font-king is-size-5">Se Connecter</button>
                         </div>
                     </div>
 
                     <hr>
 
-                    Or <router-link to="/sign-up">click here</router-link> to sign up!
+                    <div class="font-king is-size-5">Ou <router-link to="/sign-up">cliquez içi</router-link> pour s'inscrire!</div>
                 </form>
             </div>
         </div>
@@ -82,7 +82,7 @@ export default {
                 .catch(error => {
                     if (error.response) {
                         for (const property in error.response.data) {
-                            this.errors.push(`${property}: ${error.response.data[property]}`)
+                            this.errors.push("Mot de passe ou nom d'utilisateur est incorrecte")
                         }
                     } else {
                         this.errors.push('Something went wrong. Please try again')

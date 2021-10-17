@@ -1,19 +1,19 @@
 <template>
   <div class="home">
-    <section class="hero is-medium is-dark mb-6">
+    <section class="hero is-medium mb-6">
         <div class="hero-body has-text-centered">
-            <p class="title mb-6">
-                Welcome to Djacket
+            <p class="title mb-6 is-1 welcome-font">
+                Bienvenue à Cosfluencer
             </p>
-            <p class="subtitle">
-                The best jacket store online
+            <p class="subtitle welcome-font">
+                Créez votre pack pour votre communauté
             </p>
         </div>
     </section>
 
     <div class="columns is-multiline">
       <div class="column is-12">
-          <h2 class="is-size-2 has-text-centered">Latest products</h2>
+          <h2 class="is-size-2 has-text-centered welcome-font">Nos Derniers Produits</h2>
       </div>
 
       <ProductBox 
@@ -62,3 +62,16 @@ export default {
   }
 }
 </script>
+
+<style style="scss">
+@import url('https://fonts.googleapis.com/css?family=Ephesis');
+.welcome-font{
+  font-family: 'Ephesis', sans-serif;
+}
+.bg-img { 
+    background-image: url("../assets/home.jpg");
+    background-repeat:  no-repeat;
+    background-size: 2000px 352px;
+}
+
+</style>

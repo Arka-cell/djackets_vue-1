@@ -1,9 +1,9 @@
 <template>
-    <div class="page-product">
+    <div class="page-product welcome-font">
         <div class="columns is-multiline">
             <div class="column is-9">
                 <figure class="image mb-6">
-                    <img v-bind:src="product.get_image">
+                    <img v-bind:src="product.get_image" style="width: 400px">
                 </figure>
 
                 <h1 class="title">{{ product.name }}</h1>
@@ -12,17 +12,17 @@
             </div>
 
             <div class="column is-3">
-                <h2 class="subtitle">Information</h2>
+                <h2 class="subtitle">Informations</h2>
 
-                <p><strong>Price: </strong>${{ product.price }}</p>
+                <p><strong>Prix: </strong>{{ product.price }}DZD</p>
 
                 <div class="field has-addons mt-6">
                     <div class="control">
-                        <input type="number" class="input" min="1" v-model="quantity">
+                        <input type="number" class="input welcome-font" min="1" v-model="quantity">
                     </div>
 
                     <div class="control">
-                        <a class="button is-dark" @click="addToCart()">Add to cart</a>
+                        <a class="button is-dark" @click="addToCart()">Ajouter à votre pack</a>
                     </div>
                 </div>
             </div>

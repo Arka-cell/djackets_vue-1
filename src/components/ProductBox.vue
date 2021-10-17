@@ -5,10 +5,10 @@
                 <img v-bind:src="product.get_thumbnail">
             </figure>
 
-            <h3 class="is-size-4">{{ product.name }}</h3>
-            <p class="is-size-6 has-text-grey">${{ product.price }}</p>
+            <h3 class="is-size-4 welcome-font">{{ product.name }}</h3>
+            <p class="is-size-6 has-text-grey welcome-font">{{ product.price }} DZD</p>
 
-            <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">View details</router-link>
+            <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4 welcome-font is-size-5">Voir plus de détails</router-link>
         </div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="page-checkout">
+    <div class="page-checkout welcome-font">
         <div class="columns is-multiline">
             <div class="column is-12">
                 <h1 class="title">Checkout</h1>

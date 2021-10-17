@@ -1,18 +1,18 @@
 <template>
-    <div class="page-my-account">
+    <div class="page-my-account welcome-font">
         <div class="columns is-multiline">
             <div class="column is-12">
-                <h1 class="title">My account</h1>
+                <h1 class="title">Mon Compte</h1>
             </div>
 
             <div class="column is-12">
-                <button @click="logout()" class="button is-danger">Log out</button>
+                <button @click="logout()" class="button is-danger font-king is-size-4">Log out</button>
             </div>
 
             <hr>
 
             <div class="column is-12">
-                <h2 class="subtitle">My orders</h2>
+                <h2 class="subtitle is-size-4">Mes Packs</h2>
 
                 <OrderSummary
                     v-for="order in orders"
