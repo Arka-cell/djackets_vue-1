@@ -2,29 +2,46 @@
   <div id="wrapper">
     <nav class="navbar">
       <div class="navbar-brand">
-        <router-link to="/" class="navbar-item"><strong class="font-king is-size-4">Cosfluencer</strong></router-link>
+        <router-link to="/" class="navbar-item"
+          ><strong class="font-king is-size-4">Cosfluencer</strong></router-link
+        >
 
-        <a class="navbar-burger font-king" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu = !showMobileMenu">
+        <a
+          class="navbar-burger font-king"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbar-menu"
+          @click="showMobileMenu = !showMobileMenu"
+        >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu }">
+      <div
+        class="navbar-menu"
+        id="navbar-menu"
+        v-bind:class="{ 'is-active': showMobileMenu }"
+      >
         <div class="navbar-start">
           <div class="navbar-item">
             <form method="get" action="/search">
               <div class="field has-addons">
                 <div class="control">
-                  <input type="text" class="input font-king is-size-6" placeholder="Vous cherchez quoi?" name="query">
+                  <input
+                    type="text"
+                    class="input font-king is-size-6"
+                    placeholder="Vous cherchez quoi?"
+                    name="query"
+                  />
                 </div>
 
                 <div class="control">
                   <button class="button">
-                      <span class="icon">
+                    <span class="icon">
                       <i class="fas fa-search"></i>
-                      </span>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -33,22 +50,41 @@
         </div>
 
         <div class="navbar-end">
-          <router-link to="/summer" class="navbar-item font-king is-size-4">Summer</router-link>
-          <router-link to="/winter" class="navbar-item font-king is-size-4">Winter</router-link>
+          <router-link to="/maquillage" class="navbar-item font-king is-size-4"
+            >Maquillage</router-link
+          >
+          <router-link
+            to="/soins-hygiene"
+            class="navbar-item font-king is-size-4"
+            >Soins et Hygiène</router-link
+          >
+          <router-link to="/capillaire" class="navbar-item font-king is-size-4"
+            >Entretien Capillaires</router-link
+          >
 
           <div class="navbar-item">
             <div class="buttons">
               <template v-if="$store.state.isAuthenticated">
-                <router-link to="/my-account" class="button is-pink font-king is-size-6">Mon Compte</router-link>
+                <router-link
+                  to="/my-account"
+                  class="button is-pink font-king is-size-6"
+                  >Mon Compte</router-link
+                >
               </template>
 
               <template v-else>
-                <router-link to="/log-in" class="button is-pink font-king is-size-6">Se Connecter</router-link>
+                <router-link
+                  to="/log-in"
+                  class="button is-pink font-king is-size-6"
+                  >Se Connecter</router-link
+                >
               </template>
 
               <router-link to="/cart" class="button is-pink">
                 <span class="icon"><i class="fas fa-box-open"></i></span>
-                <span class="font-king is-size-5">Mon Pack ({{ cartTotalLength }})</span>
+                <span class="font-king is-size-5"
+                  >Mon Pack ({{ $store.state.totalCart }})</span
+                >
               </router-link>
             </div>
           </div>
@@ -56,12 +92,15 @@
       </div>
     </nav>
 
-    <div class="is-loading-bar has-text-centered" v-bind:class="{'is-loading': $store.state.isLoading }">
+    <div
+      class="is-loading-bar has-text-centered"
+      v-bind:class="{ 'is-loading': $store.state.isLoading }"
+    >
       <div class="lds-dual-ring"></div>
     </div>
 
     <section class="section">
-      <router-view/>
+      <router-view />
     </section>
 
     <footer class="footer">
@@ -71,47 +110,46 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   data() {
     return {
       showMobileMenu: false,
       cart: {
-        items: []
-      }
-    }
+        items: [],
+      },
+    };
   },
   beforeCreate() {
-    this.$store.commit('initializeStore')
+    this.$store.commit("initializeStore");
 
-    const token = this.$store.state.token
+    const token = this.$store.state.token;
 
     if (token) {
-        axios.defaults.headers.common['Authorization'] = "Token " + token
+      axios.defaults.headers.common["Authorization"] = "Token " + token;
     } else {
-        axios.defaults.headers.common['Authorization'] = ""
+      axios.defaults.headers.common["Authorization"] = "";
     }
   },
   mounted() {
-    this.cart = this.$store.state.cart
+    this.cart = this.$store.state.cart;
   },
   computed: {
-      cartTotalLength() {
-          let totalLength = 0
+    cartTotalLength() {
+      let totalLength = 0;
 
-          for (let i = 0; i < this.cart.items.length; i++) {
-              totalLength += this.cart.items[i].quantity
-          }
-
-          return totalLength
+      for (let i = 0; i < this.cart.items.length; i++) {
+        totalLength += this.cart.items[i].quantity;
       }
-  }
-}
+      return totalLength;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../node_modules/bulma';
+@import "../node_modules/bulma";
 
 .lds-dual-ring {
   display: inline-block;
@@ -150,8 +188,12 @@ export default {
   }
 }
 
-@import url('https://fonts.googleapis.com/css?family=Loved+by+the+King');
+@import url("https://fonts.googleapis.com/css?family=Loved+by+the+King");
 .font-king {
   font-family: "Loved by the King", "sans-serif";
+}
+.required:after {
+  content: " *";
+  color: red;
 }
 </style>
