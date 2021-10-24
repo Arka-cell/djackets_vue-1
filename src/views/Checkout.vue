@@ -43,55 +43,17 @@
         <div class="columns is-multiline">
           <div class="column is-6">
             <div class="field">
-              <label>First name*</label>
+              <label>Nom de votre Pack*</label>
               <div class="control">
-                <input type="text" class="input" v-model="first_name" />
+                <input type="text" class="input" v-model="name" />
               </div>
             </div>
-
             <div class="field">
-              <label>Last name*</label>
-              <div class="control">
-                <input type="text" class="input" v-model="last_name" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label>E-mail*</label>
-              <div class="control">
-                <input type="email" class="input" v-model="email" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label>Phone*</label>
-              <div class="control">
-                <input type="text" class="input" v-model="phone" />
-              </div>
+              <label>Période de disponibilité</label>
+              
             </div>
           </div>
-
           <div class="column is-6">
-            <div class="field">
-              <label>Address*</label>
-              <div class="control">
-                <input type="text" class="input" v-model="address" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label>Zip code*</label>
-              <div class="control">
-                <input type="text" class="input" v-model="zipcode" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label>Place*</label>
-              <div class="control">
-                <input type="text" class="input" v-model="place" />
-              </div>
-            </div>
           </div>
         </div>
 
@@ -107,7 +69,7 @@
           <hr />
 
           <button class="button is-dark" @click="submitForm">
-            Pay with Stripe
+            Créer votre Pack
           </button>
         </template>
       </div>
@@ -125,15 +87,7 @@ export default {
       cart: {
         items: [],
       },
-      stripe: {},
-      card: {},
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      address: "",
-      zipcode: "",
-      place: "",
+      name: "",
       errors: [],
     };
   },
@@ -141,16 +95,6 @@ export default {
     document.title = "Checkout | Djackets";
 
     this.cart = this.$store.state.cart;
-
-    if (this.cartTotalLength > 0) {
-      this.stripe = Stripe(
-        "pk_test_51H1HiuKBJV2qfWbD2gQe6aqanfw6Eyul5PO2KeOuSRlUMuaV4TxEtaQyzr9DbLITSZweL7XjK3p74swcGYrE2qEX00Hz7GmhMI"
-      );
-      const elements = this.stripe.elements();
-      this.card = elements.create("card", { hidePostalCode: true });
-
-      this.card.mount("#card-element");
-    }
   },
   methods: {
     getItemTotal(item) {
@@ -159,40 +103,15 @@ export default {
     submitForm() {
       this.errors = [];
 
-      if (this.first_name === "") {
-        this.errors.push("The first name field is missing!");
+      if (this.name == "") {
+        this.errors.push("Le nom pour votre pack est obligatoire!")
       }
-
-      if (this.last_name === "") {
-        this.errors.push("The last name field is missing!");
-      }
-
-      if (this.email === "") {
-        this.errors.push("The email field is missing!");
-      }
-
-      if (this.phone === "") {
-        this.errors.push("The phone field is missing!");
-      }
-
-      if (this.address === "") {
-        this.errors.push("The address field is missing!");
-      }
-
-      if (this.zipcode === "") {
-        this.errors.push("The zip code field is missing!");
-      }
-
-      if (this.place === "") {
-        this.errors.push("The place field is missing!");
-      }
-
       if (!this.errors.length) {
         this.$store.commit("setIsLoading", true);
-        this.stripeTokenHandler();
+        this.submitForm();
       }
     },
-    async stripeTokenHandler() {
+    async submitForm() {
       const items = [];
 
       for (let i = 0; i < this.cart.items.length; i++) {
@@ -207,13 +126,7 @@ export default {
       }
 
       const data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        address: this.address,
-        zipcode: this.zipcode,
-        place: this.place,
-        phone: this.phone,
+        name: this.name,
         items: items,
       };
 
