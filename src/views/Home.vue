@@ -72,7 +72,7 @@ export default {
   font-family: "Ephesis", sans-serif;
 }
 .bg-img {
-  background-image: url("../assets/home.jpg");
+  /*background-image: url("../assets/home.jpg");*/
   background-repeat: no-repeat;
   background-size: 2000px 352px;
 }
