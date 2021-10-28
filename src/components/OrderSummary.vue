@@ -1,6 +1,6 @@
 <template>
     <div class="box mb-4">
-        <h3 class="is-size-4 mb-6">Order #{{ order.id }}</h3>
+        <h3 class="is-size-4 mb-6">{{ order.name }} </h3>
 
         <h4 class="is-size-5">Products</h4>
 
