@@ -44,7 +44,8 @@ const routes = [
     component: MyAccount,
     meta: {
         requireLogin: true
-    }
+    },
+    props: {toPack: false}
   },
   {
     path: '/search',

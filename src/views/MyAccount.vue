@@ -4,7 +4,7 @@
       <div class="column is-12">
         <h1 class="title">Mon Compte</h1>
       </div>
-
+      <div v-if="returnPack">Returning to Pack</div>
       <div class="column is-12 box">
         <h2 class="subtitle">Shipping details</h2>
 
@@ -203,9 +203,11 @@ export default {
         youtube_followers: 0,
         confirmed: false,
       },
+      returnPack: false
     };
   },
   async mounted() {
+    this.returnPack = this.$store.state.toPack
     document.title = "Mon Compte | CoFluencer";
     this.getMyOrders();
     await axios.get("api/v1/personal-infos/").then((response) => {
@@ -233,6 +235,9 @@ export default {
         .then((response) => {
           this.personalInfos = response.data;
           this.savedPersonalInfos = response.data;
+          if(this.returnPack && this.savedPersonalInfos.confirmed) {
+            router.push("/cart/checkout")
+          }
         });
     },
     logout() {

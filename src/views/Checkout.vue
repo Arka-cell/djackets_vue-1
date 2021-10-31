@@ -50,11 +50,9 @@
             </div>
             <div class="field">
               <label>Période de disponibilité</label>
-              
             </div>
           </div>
-          <div class="column is-6">
-          </div>
+          <div class="column is-6"></div>
         </div>
 
         <div class="notification is-danger mt-4" v-if="errors.length">
@@ -89,9 +87,11 @@ export default {
       },
       name: "",
       errors: [],
+      isConfirmed: false,
     };
   },
   mounted() {
+    this.$store.state.toPack = false;
     document.title = "Checkout | Djackets";
 
     this.cart = this.$store.state.cart;
@@ -101,49 +101,59 @@ export default {
       return item.quantity * item.product.price;
     },
     submitForm() {
-      this.errors = [];
+      console.log(this.isConfirmed);
+      if (this.isConfirmed) {
+        this.errors = [];
 
-      if (this.name == "") {
-        this.errors.push("Le nom pour votre pack est obligatoire!")
-      }
-      if (!this.errors.length) {
-        this.$store.commit("setIsLoading", true);
-        this.submitForm();
+        if (this.name == "") {
+          this.errors.push("Le nom pour votre pack est obligatoire!");
+        }
+        if (!this.errors.length) {
+          this.$store.commit("setIsLoading", true);
+          this.submitForm();
+        }
+      } else {
+        this.$router.push("/my-account");
       }
     },
     async submitForm() {
-      const items = [];
+      if (this.isConfirmed) {
+        const items = [];
 
-      for (let i = 0; i < this.cart.items.length; i++) {
-        const item = this.cart.items[i];
-        const obj = {
-          product: item.product.id,
-          quantity: item.quantity,
-          price: item.product.price * item.quantity,
+        for (let i = 0; i < this.cart.items.length; i++) {
+          const item = this.cart.items[i];
+          const obj = {
+            product: item.product.id,
+            quantity: item.quantity,
+            price: item.product.price * item.quantity,
+          };
+
+          items.push(obj);
+        }
+
+        const data = {
+          name: this.name,
+          items: items,
         };
 
-        items.push(obj);
+        await axios
+          .post("/api/v1/checkout/", data)
+          .then((response) => {
+            this.$store.commit("clearCart");
+            this.$router.push("/cart/success");
+            this.$store.state.totalCart = 0;
+          })
+          .catch((error) => {
+            this.errors.push("Something went wrong. Please try again");
+
+            console.log(error);
+          });
+
+        this.$store.commit("setIsLoading", false);
+      } else {
+        this.$store.state.toPack = true;
+        this.$router.push("/my-account");
       }
-
-      const data = {
-        name: this.name,
-        items: items,
-      };
-
-      await axios
-        .post("/api/v1/checkout/", data)
-        .then((response) => {
-          this.$store.commit("clearCart");
-          this.$router.push("/cart/success");
-          this.$store.state.totalCart = 0;
-        })
-        .catch((error) => {
-          this.errors.push("Something went wrong. Please try again");
-
-          console.log(error);
-        });
-
-      this.$store.commit("setIsLoading", false);
     },
   },
   computed: {

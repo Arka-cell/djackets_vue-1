@@ -8,7 +8,8 @@ export default createStore({
     isAuthenticated: false,
     token: '',
     isLoading: false,
-    totalCart: 0
+    totalCart: 0,
+    toPack: false
   },
   mutations: {
     initializeStore(state) {
