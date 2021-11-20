@@ -87,13 +87,15 @@ export default {
       },
       name: "",
       errors: [],
-      isConfirmed: false,
     };
   },
-  mounted() {
-    this.$store.state.toPack = false;
+  async mounted() {
+    await axios.get("api/v1/personal-infos/").then((response) => {
+      this.$store.state.isConfirmed = response.data.confirmed;
+      console.log("response data", response.data.confirmed);
+    });
     document.title = "Checkout | Djackets";
-
+    console.log("Confirmed", this.$store.state.isConfirmed);
     this.cart = this.$store.state.cart;
   },
   methods: {
@@ -101,8 +103,7 @@ export default {
       return item.quantity * item.product.price;
     },
     submitForm() {
-      console.log(this.isConfirmed);
-      if (this.isConfirmed) {
+      if (this.$store.state.isConfirmed) {
         this.errors = [];
 
         if (this.name == "") {
@@ -117,7 +118,7 @@ export default {
       }
     },
     async submitForm() {
-      if (this.isConfirmed) {
+      if (this.$store.state.isConfirmed) {
         const items = [];
 
         for (let i = 0; i < this.cart.items.length; i++) {
@@ -140,12 +141,11 @@ export default {
           .post("/api/v1/checkout/", data)
           .then((response) => {
             this.$store.commit("clearCart");
-            this.$router.push("/cart/success");
             this.$store.state.totalCart = 0;
+            this.$router.push("/cart/success");
           })
           .catch((error) => {
             this.errors.push("Something went wrong. Please try again");
-
             console.log(error);
           });
 

@@ -9,7 +9,7 @@
         <h2 class="subtitle">Shipping details</h2>
 
         <p class="has-text-grey mb-4">* All fields are required</p>
-
+        <div v-if="errors[0]">Complétez votre formulaire s'il vous plait</div>
         <div class="columns is-multiline">
           <div class="column is-6">
             <div class="field">
@@ -203,11 +203,13 @@ export default {
         youtube_followers: 0,
         confirmed: false,
       },
-      returnPack: false
+      returnPack: false,
+      errors: [],
     };
   },
   async mounted() {
-    this.returnPack = this.$store.state.toPack
+    this.$store.state.toPack;
+    this.returnPack = this.$store.state.toPack;
     document.title = "Mon Compte | CoFluencer";
     this.getMyOrders();
     await axios.get("api/v1/personal-infos/").then((response) => {
@@ -220,9 +222,7 @@ export default {
       const editedFields = {};
       for (const key in form) {
         if (this.savedPersonalInfos[key] !== form[key]) {
-          if (form[key]) {
-            editedFields[key] = form[key];
-          }
+          editedFields[key] = form[key];
         }
       }
       return editedFields;
@@ -235,8 +235,11 @@ export default {
         .then((response) => {
           this.personalInfos = response.data;
           this.savedPersonalInfos = response.data;
-          if(this.returnPack && this.savedPersonalInfos.confirmed) {
-            router.push("/cart/checkout")
+          if (this.savedPersonalInfos.confirmed) {
+            if (!this.$store.state.isConfirmed) {
+              this.$store.state.isConfirmed = this.savedPersonalInfos.confirmed;
+              this.$router.push("/cart/checkout");
+            }
           }
         });
     },
